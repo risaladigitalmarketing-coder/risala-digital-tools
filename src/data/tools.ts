@@ -1,0 +1,260 @@
+export interface ToolItem {
+  id: string
+  slug: string
+  name: string
+  desc: string
+  path: string
+  iconName: string
+  color: string
+  bgColor: string
+  borderColor: string
+  shadowColor: string
+  tag: string
+  trafficLabel: string
+  rank: string
+  features: string[]
+  category: string
+}
+
+export const toolsList: ToolItem[] = [
+  {
+    id: "pdf-tools",
+    slug: "pdf-tools",
+    name: "PDF Toolkit",
+    desc: "Merge, split, compress, and convert JPG to PDF/PDF to JPG fully in your browser with zero data leakage.",
+    path: "/tools/pdf-tools",
+    iconName: "FileText",
+    color: "text-red-500",
+    bgColor: "bg-red-50",
+    borderColor: "hover:border-red-200",
+    shadowColor: "hover:shadow-red-50/50",
+    tag: "Evergreen",
+    trafficLabel: "High Traffic",
+    rank: "#1 Demand",
+    features: ["Merge PDFs", "Split PDFs", "Compress PDF File", "JPG to PDF Conversion"],
+    category: "PDF & Document Utilities"
+  },
+  {
+    id: "whatsapp-link-generator",
+    slug: "whatsapp-link-generator",
+    name: "WhatsApp Link Generator",
+    desc: "Create pre-filled wa.me links instantly with custom message support to boost clicks and customer outreach.",
+    path: "/tools/whatsapp-link-generator",
+    iconName: "MessageSquare",
+    color: "text-green-500",
+    bgColor: "bg-green-50",
+    borderColor: "hover:border-green-200",
+    shadowColor: "hover:shadow-green-50/50",
+    tag: "High Traffic",
+    trafficLabel: "Viral Growth",
+    rank: "Low Competition",
+    features: ["Custom Prefilled Message", "Click-to-Chat Generation", "Hinglish Support", "Instant Copy Link"],
+    category: "Social Media & Chat Tools"
+  },
+  {
+    id: "business-name-generator",
+    slug: "business-name-generator",
+    name: "Business Name Generator",
+    desc: "Generate professional, unique brand names for Cafes, Clothing, Restaurants, Tech Companies, and agencies instantly.",
+    path: "/tools/business-name-generator",
+    iconName: "Search",
+    color: "text-blue-500",
+    bgColor: "bg-blue-50",
+    borderColor: "hover:border-blue-200",
+    shadowColor: "hover:shadow-blue-50/50",
+    tag: "SEO Friendly",
+    trafficLabel: "SEO Magnet",
+    rank: "Thousands of Keywords",
+    features: ["50+ Brand Options", "Niche Sub-categories", "Hindi & English Terms", "Brandability Analysis"],
+    category: "Branding & Naming Tools"
+  },
+  {
+    id: "marketing-calculators",
+    slug: "marketing-calculators",
+    name: "Marketing Calculators",
+    desc: "Professional suite of calculators including ROI, ROAS, CTR, CPC, CPM, and Conversion Rate optimization tools.",
+    path: "/tools/marketing-calculators",
+    iconName: "Calculator",
+    color: "text-indigo-500",
+    bgColor: "bg-indigo-50",
+    borderColor: "hover:border-indigo-200",
+    shadowColor: "hover:shadow-indigo-50/50",
+    tag: "High RPM",
+    trafficLabel: "Premium RPM",
+    rank: "Agencies Bookmark",
+    features: ["ROI/ROAS Matrix", "CTR & CPC Optimization", "CPM Calculations", "Lead Conversion Rate"],
+    category: "Financial & Marketing Calculators"
+  },
+  {
+    id: "ai-meta-ads-generator",
+    slug: "ai-meta-ads-generator",
+    name: "AI Meta Ads Generator",
+    desc: "Harness AI to write high-converting primary text, headlines, and descriptions for Facebook & Instagram ads.",
+    path: "/tools/ai-meta-ads-generator",
+    iconName: "Megaphone",
+    color: "text-purple-500",
+    bgColor: "bg-purple-50",
+    borderColor: "hover:border-purple-200",
+    shadowColor: "hover:shadow-purple-50/50",
+    tag: "AI Tool",
+    trafficLabel: "AI Powered",
+    rank: "Trending Search",
+    features: ["Tone Selection", "Hinglish Ad Copy", "Emoji-rich Outputs", "20+ Variations Instantly"],
+    category: "AI Marketing & Ad Tools"
+  },
+  {
+    id: "ai-blog-generator",
+    slug: "ai-blog-generator",
+    name: "AI Blog Generator",
+    desc: "Generate comprehensive blog post outlines, How-to guides, and listicles optimized for search engine rankings.",
+    path: "/tools/ai-blog-generator",
+    iconName: "PenTool",
+    color: "text-pink-500",
+    bgColor: "bg-pink-50",
+    borderColor: "hover:border-pink-200",
+    shadowColor: "hover:shadow-pink-50/50",
+    tag: "AI Tool",
+    trafficLabel: "SEO Content",
+    rank: "High Search Volume",
+    features: ["Article Outlines", "Multiple Templates", "SEO Key Takeaways", "FAQ Section Generator"],
+    category: "AI Marketing & Ad Tools"
+  },
+  {
+    id: "ai-email-toolkit",
+    slug: "ai-email-toolkit",
+    name: "AI Email Toolkit",
+    desc: "Professional email templates and AI-powered copy generation for outreach, sales pitches, and follow-ups.",
+    path: "/tools/ai-email-toolkit",
+    iconName: "Mail",
+    color: "text-cyan-500",
+    bgColor: "bg-cyan-50",
+    borderColor: "hover:border-cyan-200",
+    shadowColor: "hover:shadow-cyan-50/50",
+    tag: "AI Tool",
+    trafficLabel: "Sales Outreach",
+    rank: "High Conversion",
+    features: ["Cold Outreach Templates", "Follow-up Sequences", "Sales Pitches", "Tone Customization"],
+    category: "AI Marketing & Ad Tools"
+  },
+  {
+    id: "dev-toolkit",
+    slug: "dev-toolkit",
+    name: "Dev Toolkit",
+    desc: "Essential developer reference guides, Git command cheatsheets, and terminal workflow shortcuts.",
+    path: "/tools/dev-toolkit",
+    iconName: "Wrench",
+    color: "text-indigo-500",
+    bgColor: "bg-indigo-50",
+    borderColor: "hover:border-indigo-200",
+    shadowColor: "hover:shadow-indigo-50/50",
+    tag: "Dev Tool",
+    trafficLabel: "Developer Hub",
+    rank: "Daily Utility",
+    features: ["Git Cheatsheet", "Terminal Shortcuts", "Common Scripts", "Quick References"],
+    category: "Developer Utilities"
+  },
+  {
+    id: "ai-prompt-generator",
+    slug: "ai-prompt-generator",
+    name: "AI Prompt Generator",
+    desc: "Generate structured, high-yield prompts for ChatGPT, Midjourney, Claude, and Gemini.",
+    path: "/tools/ai-prompt-generator",
+    iconName: "Sparkles",
+    color: "text-amber-500",
+    bgColor: "bg-amber-50",
+    borderColor: "hover:border-amber-200",
+    shadowColor: "hover:shadow-amber-50/50",
+    tag: "AI Tool",
+    trafficLabel: "AI Prompts",
+    rank: "Utility",
+    features: ["Prompt Templates", "Variable Customizer"],
+    category: "AI Marketing & Ad Tools"
+  },
+  {
+    id: "ai-image-tools",
+    slug: "ai-image-tools",
+    name: "AI Image Tools",
+    desc: "Browser-based image resize, crop, and web optimization tools for ecommerce sellers.",
+    path: "/tools/ai-image-tools",
+    iconName: "Image",
+    color: "text-rose-500",
+    bgColor: "bg-rose-50",
+    borderColor: "hover:border-rose-200",
+    shadowColor: "hover:shadow-rose-50/50",
+    tag: "AI Tool",
+    trafficLabel: "Image Suite",
+    rank: "Utility",
+    features: ["Image Resizer", "Format Converter"],
+    category: "Media Tools"
+  },
+  {
+    id: "json-tools",
+    slug: "json-tools",
+    name: "JSON Tools",
+    desc: "Format, validate, beautify, and minify JSON structures safely in browser.",
+    path: "/tools/json-tools",
+    iconName: "Code",
+    color: "text-orange-500",
+    bgColor: "bg-orange-50",
+    borderColor: "hover:border-orange-200",
+    shadowColor: "hover:shadow-orange-50/50",
+    tag: "Dev Tool",
+    trafficLabel: "Dev Essential",
+    rank: "High Usage",
+    features: ["Formatter", "Validator", "Minifier"],
+    category: "Developer Utilities"
+  },
+  {
+    id: "code-formatter",
+    slug: "code-formatter",
+    name: "Code Formatter",
+    desc: "Format HTML, CSS, JavaScript, and TypeScript code snippets with custom indenting.",
+    path: "/tools/code-formatter",
+    iconName: "Terminal",
+    color: "text-green-500",
+    bgColor: "bg-green-50",
+    borderColor: "hover:border-green-200",
+    shadowColor: "hover:shadow-green-50/50",
+    tag: "Dev Tool",
+    trafficLabel: "Syntax Formatter",
+    rank: "Utility",
+    features: ["HTML/CSS/JS Beautifier"],
+    category: "Developer Utilities"
+  },
+  {
+    id: "youtube-tag-extractor",
+    slug: "youtube-tag-extractor",
+    name: "YouTube Tag Extractor",
+    desc: "Extract hidden SEO tags, keywords, and title details from any YouTube video URL instantly.",
+    path: "/tools/youtube-tag-extractor",
+    iconName: "Youtube",
+    color: "text-red-600",
+    bgColor: "bg-red-50",
+    borderColor: "hover:border-red-200",
+    shadowColor: "hover:shadow-red-50/50",
+    tag: "Viral",
+    trafficLabel: "High Search",
+    rank: "Trending",
+    features: ["Instant Tag Extraction", "Copy All Tags CSV", "SEO Keyword Analysis", "Video ID Resolver"],
+    category: "Social Media & Chat Tools"
+  },
+  {
+    id: "youtube-thumbnail-downloader",
+    slug: "youtube-thumbnail-downloader",
+    name: "YouTube Thumbnail Downloader",
+    desc: "Download HD, Full HD, and 4K YouTube video thumbnails in high resolution with one click.",
+    path: "/tools/youtube-thumbnail-downloader",
+    iconName: "Video",
+    color: "text-red-500",
+    bgColor: "bg-red-50",
+    borderColor: "hover:border-red-200",
+    shadowColor: "hover:shadow-red-50/50",
+    tag: "Viral",
+    trafficLabel: "1-Click Download",
+    rank: "High Demand",
+    features: ["4K & HD Qualities", "Direct Image Download", "Multiple Resolutions", "Instant Preview"],
+    category: "Social Media & Chat Tools"
+  }
+]
+
+export const toolCategories = Array.from(new Set(toolsList.map(t => t.category)))
