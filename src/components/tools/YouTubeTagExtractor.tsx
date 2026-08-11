@@ -3,6 +3,8 @@
 import React, { useState } from 'react'
 import { Video, Search, Copy, Check, Hash, ExternalLink, Sparkles, Tag, Layers } from 'lucide-react'
 import AdSenseBanner from '@/components/AdSenseBanner'
+import ToolComments from '@/components/ToolComments'
+import { useUsageLimit } from '@/lib/useUsageLimit'
 
 interface VideoInfo {
   videoId: string
@@ -18,6 +20,8 @@ export default function YouTubeTagExtractor() {
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null)
   const [copiedAll, setCopiedAll] = useState(false)
   const [copiedTag, setCopiedTag] = useState<string | null>(null)
+
+  const { usageCount, maxLimit, limitReached, incrementUsage, isLoggedIn } = useUsageLimit('youtube-tag-extractor')
 
   const extractVideoId = (inputUrl: string): string | null => {
     const trimmed = inputUrl.trim()
@@ -41,9 +45,19 @@ export default function YouTubeTagExtractor() {
       return
     }
 
+    if (limitReached) {
+      setError(`Free daily limit reached (${usageCount}/${maxLimit}). ${!isLoggedIn ? 'Please Sign In to get 10 free uses!' : 'Rate limit exceeded.'}`)
+      return
+    }
+
     const id = extractVideoId(url.trim())
     if (!id) {
       setError('Invalid YouTube video link. Please enter a valid URL like https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+      return
+    }
+
+    if (!incrementUsage()) {
+      setError(`Free limit reached (${usageCount}/${maxLimit}). Please Sign In for higher limits!`)
       return
     }
 
@@ -252,6 +266,9 @@ export default function YouTubeTagExtractor() {
           </div>
         </div>
       </div>
+
+      {/* Community Comments Section */}
+      <ToolComments toolSlug="youtube-tag-extractor" />
     </div>
   )
 }
