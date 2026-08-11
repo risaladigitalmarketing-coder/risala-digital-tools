@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronDown, Sparkles, Share2, Layers, User } from 'lucide-react'
+import { Menu, X, ChevronDown, Sparkles, Share2, Layers, User, LogOut } from 'lucide-react'
+import { useSession, signOut } from 'next-auth/react'
 import { toolCategories } from '@/data/tools'
 import AuthModal from '@/components/AuthModal'
 
@@ -14,6 +15,7 @@ interface HeaderProps {
 
 export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProps) {
   const pathname = usePathname()
+  const { data: session } = useSession()
   const [catDropdownOpen, setCatDropdownOpen] = useState(false)
   const [authModalOpen, setAuthModalOpen] = useState(false)
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin')
@@ -155,20 +157,43 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
 
             {/* Right Action Buttons */}
             <div className="flex items-center space-x-2.5">
-              <button
-                onClick={() => openAuth('signin')}
-                className="hidden sm:inline-flex items-center space-x-1.5 text-xs font-bold text-slate-700 hover:text-green-700 bg-slate-100 hover:bg-green-50 px-3.5 py-2 rounded-xl border border-slate-200/80 transition"
-              >
-                <User size={14} className="text-slate-500" />
-                <span>Sign In</span>
-              </button>
+              {session?.user ? (
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 bg-green-50 text-green-800 px-3 py-1.5 rounded-xl border border-green-200/80 text-xs font-bold">
+                    {session.user.image ? (
+                      <img src={session.user.image} alt={session.user.name || 'User'} className="w-5 h-5 rounded-full" />
+                    ) : (
+                      <User size={15} className="text-green-600" />
+                    )}
+                    <span>{session.user.name || session.user.email?.split('@')[0]}</span>
+                  </div>
 
-              <button
-                onClick={() => openAuth('signup')}
-                className="hidden md:inline-flex items-center space-x-1 text-xs font-extrabold text-white bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 px-3.5 py-2 rounded-xl shadow-xs shadow-green-200 transition"
-              >
-                <span>Sign Up</span>
-              </button>
+                  <button
+                    onClick={() => signOut()}
+                    className="p-2 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 transition"
+                    title="Sign Out"
+                  >
+                    <LogOut size={16} />
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <button
+                    onClick={() => openAuth('signin')}
+                    className="hidden sm:inline-flex items-center space-x-1.5 text-xs font-bold text-slate-700 hover:text-green-700 bg-slate-100 hover:bg-green-50 px-3.5 py-2 rounded-xl border border-slate-200/80 transition"
+                  >
+                    <User size={14} className="text-slate-500" />
+                    <span>Sign In</span>
+                  </button>
+
+                  <button
+                    onClick={() => openAuth('signup')}
+                    className="hidden md:inline-flex items-center space-x-1 text-xs font-extrabold text-white bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 px-3.5 py-2 rounded-xl shadow-xs shadow-green-200 transition"
+                  >
+                    <span>Sign Up</span>
+                  </button>
+                </>
+              )}
 
               <button 
                 onClick={handleShare}
