@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { MessageSquare, Send, User, Sparkles, ThumbsUp } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { supabase } from '@/lib/supabase'
 
 interface CommentItem {
   id: string
@@ -23,48 +24,76 @@ export default function ToolComments({ toolSlug }: ToolCommentsProps) {
   const [newComment, setNewComment] = useState('')
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storageKey = `comments_${toolSlug}`
-      const saved = localStorage.getItem(storageKey)
-      if (saved) {
-        try {
-          setComments(JSON.parse(saved))
-        } catch (e) {
-          console.error('Error parsing comments:', e)
+    async function fetchComments() {
+      if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+        const { data, error } = await supabase
+          .from('tool_comments')
+          .select('*')
+          .eq('tool_slug', toolSlug)
+          .order('created_at', { ascending: false })
+
+        if (!error && data && data.length > 0) {
+          setComments(data.map(item => ({
+            id: item.id,
+            userName: item.user_name,
+            userImage: item.user_image,
+            text: item.text,
+            createdAt: new Date(item.created_at).toLocaleDateString(),
+            likes: item.likes || 0
+          })))
+          return
         }
-      } else {
-        // Initial sample comments
-        const sampleComments: CommentItem[] = [
-          {
-            id: 'c1',
-            userName: 'Rahul Sharma',
-            text: 'Super helpful utility tool! Saved me a lot of time.',
-            createdAt: '2 hours ago',
-            likes: 4
-          },
-          {
-            id: 'c2',
-            userName: 'Priya Patel',
-            text: 'Works cleanly client-side. Really fast processing!',
-            createdAt: 'Yesterday',
-            likes: 7
+      }
+
+      // LocalStorage Fallback
+      if (typeof window !== 'undefined') {
+        const storageKey = `comments_${toolSlug}`
+        const saved = localStorage.getItem(storageKey)
+        if (saved) {
+          try {
+            setComments(JSON.parse(saved))
+          } catch (e) {
+            console.error('Error parsing comments:', e)
           }
-        ]
-        setComments(sampleComments)
-        localStorage.setItem(storageKey, JSON.stringify(sampleComments))
+        } else {
+          const sampleComments: CommentItem[] = [
+            {
+              id: 'c1',
+              userName: 'Rahul Sharma',
+              text: 'Super helpful utility tool! Saved me a lot of time.',
+              createdAt: '2 hours ago',
+              likes: 4
+            },
+            {
+              id: 'c2',
+              userName: 'Priya Patel',
+              text: 'Works cleanly client-side. Really fast processing!',
+              createdAt: 'Yesterday',
+              likes: 7
+            }
+          ]
+          setComments(sampleComments)
+          localStorage.setItem(storageKey, JSON.stringify(sampleComments))
+        }
       }
     }
+
+    fetchComments()
   }, [toolSlug])
 
-  const handleAddComment = (e: React.FormEvent) => {
+  const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!newComment.trim()) return
 
+    const authorName = session?.user?.name || session?.user?.email?.split('@')[0] || 'Guest Marketer'
+    const authorImage = session?.user?.image || undefined
+    const commentText = newComment.trim()
+
     const commentObj: CommentItem = {
       id: 'comment-' + Date.now(),
-      userName: session?.user?.name || session?.user?.email?.split('@')[0] || 'Guest Marketer',
-      userImage: session?.user?.image || undefined,
-      text: newComment.trim(),
+      userName: authorName,
+      userImage: authorImage,
+      text: commentText,
       createdAt: 'Just now',
       likes: 0
     }
@@ -72,8 +101,23 @@ export default function ToolComments({ toolSlug }: ToolCommentsProps) {
     const updated = [commentObj, ...comments]
     setComments(updated)
     setNewComment('')
+
+    // Save to LocalStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem(`comments_${toolSlug}`, JSON.stringify(updated))
+    }
+
+    // Save to Supabase Cloud
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      await supabase.from('tool_comments').insert([
+        {
+          tool_slug: toolSlug,
+          user_name: authorName,
+          user_image: authorImage,
+          text: commentText,
+          likes: 0
+        }
+      ])
     }
   }
 
