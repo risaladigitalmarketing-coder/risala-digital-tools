@@ -52,6 +52,23 @@ export const toolsList: ToolItem[] = [
     category: "Social Media & Chat Tools"
   },
   {
+    id: "hashtag-generator",
+    slug: "hashtag-generator",
+    name: "Hashtag Generator",
+    desc: "Generate viral, targeted hashtags for Instagram Reels, TikTok videos, and YouTube Shorts instantly.",
+    path: "/tools/hashtag-generator",
+    iconName: "Hash",
+    color: "text-purple-500",
+    bgColor: "bg-purple-50",
+    borderColor: "hover:border-purple-200",
+    shadowColor: "hover:shadow-purple-50/50",
+    tag: "Viral Tool",
+    trafficLabel: "High Traffic",
+    rank: "#2 Trending",
+    features: ["Instagram & TikTok Optimization", "High Reach Categories", "Copy All & Group Copy", "AI Keyword Expansion"],
+    category: "Social Media & Chat Tools"
+  },
+  {
     id: "business-name-generator",
     slug: "business-name-generator",
     name: "Business Name Generator",

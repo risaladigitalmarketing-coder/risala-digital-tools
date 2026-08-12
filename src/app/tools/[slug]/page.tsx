@@ -13,6 +13,7 @@ import AIEmailToolkit from '@/components/tools/AIEmailToolkit'
 import DevToolkit from '@/components/tools/DevToolkit'
 import YouTubeTagExtractor from '@/components/tools/YouTubeTagExtractor'
 import YouTubeThumbnailDownloader from '@/components/tools/YouTubeThumbnailDownloader'
+import HashtagGenerator from '@/components/tools/HashtagGenerator'
 import PlaceholderTool from '@/components/tools/PlaceholderTool'
 
 // WordPress integration utilities
@@ -64,8 +65,6 @@ export function generateStaticParams() {
   return toolsList.map((tool) => ({ slug: tool.slug }))
 }
 
-
-
 export default async function ToolPage({ params }: ToolPageProps) {
   const resolvedParams = await params
   const tools = await loadTools()
@@ -96,6 +95,8 @@ export default async function ToolPage({ params }: ToolPageProps) {
       return <YouTubeTagExtractor />
     case 'youtube-thumbnail-downloader':
       return <YouTubeThumbnailDownloader />
+    case 'hashtag-generator':
+      return <HashtagGenerator />
     default:
       return <PlaceholderTool toolName={tool.name} />
   }
