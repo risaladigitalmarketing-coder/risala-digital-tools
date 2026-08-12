@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronDown, Sparkles, Share2, Layers, User, LogOut } from 'lucide-react'
+import { Menu, X, ChevronDown, Sparkles, Share2, Layers, User, LogOut, Bookmark } from 'lucide-react'
 import { useSession, signOut } from 'next-auth/react'
 import { toolCategories } from '@/data/tools'
 import AuthModal from '@/components/AuthModal'
@@ -152,6 +152,18 @@ export default function Header({ mobileMenuOpen, setMobileMenuOpen }: HeaderProp
                 }`}
               >
                 Calculators
+              </Link>
+
+              <Link
+                href="/favorites"
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center space-x-1 ${
+                  pathname === '/favorites'
+                    ? 'bg-amber-50 text-amber-700 shadow-2xs border border-amber-200/80'
+                    : 'text-amber-600 hover:bg-amber-50/80'
+                }`}
+              >
+                <Bookmark size={13} />
+                <span>Favorites</span>
               </Link>
             </nav>
 
