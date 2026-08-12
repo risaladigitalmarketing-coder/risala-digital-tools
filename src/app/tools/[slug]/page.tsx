@@ -14,6 +14,9 @@ import DevToolkit from '@/components/tools/DevToolkit'
 import YouTubeTagExtractor from '@/components/tools/YouTubeTagExtractor'
 import YouTubeThumbnailDownloader from '@/components/tools/YouTubeThumbnailDownloader'
 import HashtagGenerator from '@/components/tools/HashtagGenerator'
+import AiPromptLibrary from '@/components/tools/AiPromptLibrary'
+import ImageCompressor from '@/components/tools/ImageCompressor'
+import MetaTagGenerator from '@/components/tools/MetaTagGenerator'
 import PlaceholderTool from '@/components/tools/PlaceholderTool'
 
 // WordPress integration utilities
@@ -97,6 +100,12 @@ export default async function ToolPage({ params }: ToolPageProps) {
       return <YouTubeThumbnailDownloader />
     case 'hashtag-generator':
       return <HashtagGenerator />
+    case 'ai-prompt-library':
+      return <AiPromptLibrary />
+    case 'image-compressor':
+      return <ImageCompressor />
+    case 'meta-tag-generator':
+      return <MetaTagGenerator />
     default:
       return <PlaceholderTool toolName={tool.name} />
   }
